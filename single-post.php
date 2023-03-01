@@ -29,39 +29,36 @@
         <div class="row">
             <div class="col-sm-8 blog-main">
                 <div class="blog-post">
-                <?php
+        <?php
             $sql = "SELECT id, title, body, author, created_at FROM posts WHERE posts.id = {$_GET['post_id']}";
             $statement = $connection->prepare($sql);
-            
             $statement->execute();
-            
             $statement->setFetchMode(PDO::FETCH_ASSOC);
-            
             $singlePost = $statement->fetch();
         ?>
-      
 
-            <h2 class="blog-post-title">
+        <h2 class="blog-post-title">
             <?php echo($singlePost['title']) ?>
         </h2>
-            
+
         <p class="blog-post-meta">
             <?php echo($singlePost['created_at']) ?> by <?php echo($singlePost['author']) ?>
         </p>
         <p>
             <?php echo($singlePost['body']) ?>        
         </p>
-                    </div>
-                    
+        <?php include "comments.php"?>
+                </div>
+
                     <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Older</a>
+                        <a class="btn btn-outline-primary" href="#">Older</a>
                         <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
                     </nav>
-                    
-                </div>
-        
+
+
+             </div>
                 <?php include "sidebar.php";?>
             </div>
-            <?php include 'footer.php' ?>
+                <?php include 'footer.php' ?>
 
     </main>
